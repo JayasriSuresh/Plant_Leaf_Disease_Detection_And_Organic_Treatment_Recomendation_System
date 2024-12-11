@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Plant Leaf Disease Detection</h1>
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+        <label for="file-upload">Upload Plant Leaf Image</label>
+        <input type="file" id="file-upload" name="file" onchange="previewImage(event)">
+        <button type="submit">Predict</button>
+    </form>
+
+    <img id="preview" src="" alt="Image Preview">
+
+    <div class="result">
+        <h3>Prediction Result</h3>
+        <p><strong>Predicted Disease:</strong> <span id="predicted_disease"></span></p>
+        <p><strong>Confidence:</strong> <span id="confidence"></span></p>
+        <p><strong>Recommended Treatment:</strong> <span id="treatment"></span></p>
+    </div>
+</div>
+
+<script>
+    // Preview the selected image
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const output = document.getElementById('preview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+
+</body>
+</html>
